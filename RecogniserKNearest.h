@@ -21,7 +21,7 @@ public:
 	virtual ~RecogniserKNearest();
     void learn(const cv::Mat & img, char key);
     void learn(const std::vector<cv::Mat> & images, const std::string &answers);
-    char recognize(const cv::Mat & img, bool black_on_white = false);
+    virtual char recognise(const cv::Mat & img, bool black_on_white = false);
     void saveTrainingData(const char *filename);
     void loadTrainingData(const char *filename);
     static void learnOcr(cv::VideoCapture &pImageInput, const std::string &answers, const char *filename);

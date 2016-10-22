@@ -2,13 +2,15 @@
 #define OCR_H_
 
 #include <cstdlib>
-#include <tesseract/baseapi.h>
+#include <opencv2/opencv.hpp>
 
 namespace ocr {
 
 class Recogniser {
 public:
 	virtual ~Recogniser() {};
+	virtual char recognise(const cv::Mat& img, bool black_on_white = false) = 0;
+	virtual void recognise_lines(const cv::Mat &image, const std::vector<std::vector<cv::Rect> > &lines, std::string &text, bool black_on_white = false);
 };
 
 }

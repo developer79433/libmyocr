@@ -142,4 +142,10 @@ void RecogniserTesseract::ocr(void)
 #endif
 }
 
+char RecogniserTesseract::recognise(const cv::Mat & img, bool black_on_white)
+{
+	// TODO
+	return '?';
+}
+
 }

@@ -89,7 +89,7 @@ void RecogniserKNearest::initModel() {
 /**
  * Recognize a single digit.
  */
-char RecogniserKNearest::recognize(const Mat& img, bool black_on_white) {
+char RecogniserKNearest::recognise(const Mat& img, bool black_on_white) {
 #if 0
     cerr << "Sample count: " << _pModel->get_sample_count() << "; var count: " <<_pModel->get_var_count() << endl;
 #endif

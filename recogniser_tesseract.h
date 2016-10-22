@@ -2,6 +2,7 @@
 #define RECOGNISER_TESSERACT_H 1
 
 #include <cstdlib>
+#include <opencv2/opencv.hpp>
 #include <tesseract/baseapi.h>
 
 #include "ocr.h"
@@ -28,6 +29,7 @@ public:
         int bytes_per_line
     );
     void set_image_bmp(const void *bmp_data);
+    virtual char recognise(const cv::Mat & img, bool black_on_white = false);
     void ocr(void);
     void set_image(const char *filename);
 };
