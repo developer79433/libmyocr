@@ -1,6 +1,8 @@
 #ifndef FILE_CAPTURE_H
 #define FILE_CAPTURE_H 1
 
+#include <cstdio>
+
 #include <opencv2/opencv.hpp>
 
 using namespace cv;
