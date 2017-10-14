@@ -6,6 +6,7 @@
 #include <tesseract/baseapi.h>
 
 #include "ocr.h"
+#include "mat_pix_glue.h"
 
 namespace ocr {
 
