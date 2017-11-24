@@ -1,5 +1,7 @@
 #include "find_borders.h"
 
+#include "debug.h"
+
 using namespace cv;
 
 Rect find_borders(const Mat &image)
@@ -12,7 +14,13 @@ Rect find_borders(const Mat &image)
         return contourArea(c1, false) > contourArea(c2, false);
     });
     if (contours.size() > 0) {
-        return boundingRect(contours[0]);
+    	Rect r = boundingRect(contours[0]);
+#if 0 || defined(DISPLAY_INTERMEDIATE_IMAGES)
+    	Mat work = image.clone();
+    	rectangle(work, r, Scalar(0, 0, 255));
+    	display_image("Borders", work);
+#endif /* DISPLAY_INTERMEDIATE_IMAGES */
+        return r;
     }
     return Rect();
 }
