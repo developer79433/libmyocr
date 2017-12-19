@@ -55,6 +55,13 @@ float RecogniserAbsDiff::compare(const cv::Mat &input_image, const cv::Mat &char
 	return sum[0];
 }
 
+/**
+ * TODO: Subsets of character set
+ * ICAO document 9303 says in relevant part:
+ * "Numeric characters shall not be used in the name fields of the MRZ."
+ * Also, date fields must contain Arabic numerals, 'X' for unknown, or < padding or unknown.
+ * Let the caller specify which subset of the full character set should be parsed.
+ */
 char RecogniserAbsDiff::recognise(const cv::Mat &input_image, bool black_on_white)
 {
 	float min_diff = -1;
