@@ -14,7 +14,7 @@ namespace ocr {
 using namespace std;
 using namespace cv;
 
-void Recogniser::recognise_lines(const Mat &image, const vector<vector<Rect> > &lines,
+void Recogniser::recognise(const Mat &image, const vector<vector<Rect> > &lines,
 		string &text, bool black_on_white)
 {
 #if 0

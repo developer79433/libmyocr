@@ -6,23 +6,18 @@
 
 #include "ocr.h"
 
-using namespace std;
-using namespace cv;
-
 namespace ocr {
 
 class RecogniserAbsDiff : public Recogniser {
 private:
-	Mat letters;
-	Mat charImage(char c);
+	std::string charset;
+    std::vector<cv::Mat> char_images;
 public:
-	RecogniserAbsDiff(const char *letters_image_filename);
+	RecogniserAbsDiff(const std::string &character_set, const std::string &input_dir);
 	virtual ~RecogniserAbsDiff(void) {}
-	virtual char recognise(const cv::Mat& img, bool black_on_white = false) {
-		assert(0);
-		return '\0'; // TODO
-	}
-	virtual char recognise(const cv::Mat &img, vector<vector<Rect> > &lines, string &text);
+	float compare(const cv::Mat &image, const cv::Mat &char_image, bool black_on_white = false);
+	virtual char recognise(const cv::Mat& img, bool black_on_white = false);
+	virtual void recognise(const cv::Mat &img, const std::vector<std::vector<cv::Rect> > &lines, std::string &text);
 };
 
 }
