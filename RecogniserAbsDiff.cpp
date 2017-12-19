@@ -55,26 +55,31 @@ float RecogniserAbsDiff::compare(const cv::Mat &input_image, const cv::Mat &char
 	return sum[0];
 }
 
-/**
- * TODO: Subsets of character set
- * ICAO document 9303 says in relevant part:
- * "Numeric characters shall not be used in the name fields of the MRZ."
- * Also, date fields must contain Arabic numerals, 'X' for unknown, or < padding or unknown.
- * Let the caller specify which subset of the full character set should be parsed.
- */
-char RecogniserAbsDiff::recognise(const cv::Mat &input_image, bool black_on_white)
+char RecogniserAbsDiff::recognise(const cv::Mat &input_image, bool black_on_white, unsigned int subsets_allowed)
 {
 	float min_diff = -1;
 	float min_diff_idx = 0;
 	size_t i = 0;
-	std::for_each(char_images.begin(), char_images.end(), [this, input_image, &i, &min_diff, &min_diff_idx, black_on_white](const cv::Mat &char_image) {
-		float new_diff = compare(input_image, char_image, black_on_white);
-		if (-1 == min_diff || new_diff < min_diff) {
-			min_diff = new_diff;
-			min_diff_idx = i;
+	std::for_each(
+		char_images.begin(),
+		char_images.end(),
+		[this, input_image, &i, &min_diff, &min_diff_idx, black_on_white, subsets_allowed]
+		(const cv::Mat &char_image) {
+			char c = charset[i];
+			if (
+				((subsets_allowed & SPECIAL) && !isalpha(c) && !isdigit(c))
+				|| ((subsets_allowed & ALPHA)   && isalpha(c))
+				|| ((subsets_allowed & NUMERIC) && isdigit(c))
+			) {
+				float new_diff = compare(input_image, char_image, black_on_white);
+				if (-1 == min_diff || new_diff < min_diff) {
+					min_diff = new_diff;
+					min_diff_idx = i;
+				}
+			}
+			i++;
 		}
-		i++;
-	});
+	);
 	return charset[min_diff_idx];
 }
 
